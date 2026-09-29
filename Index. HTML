@@ -1,0 +1,115 @@
+# Yemen-market-<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>سوق اليمن</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">🛒 سوق<span>اليمن</span></div>
+  <div class="roles">
+    <button id="r-buyer" class="on" onclick="app.role('buyer')">مشتري</button>
+    <button id="r-seller" onclick="app.role('seller')">بائع</button>
+    <button id="r-admin" onclick="app.role('admin')">مدير</button>
+  </div>
+  <div class="cart-btn" onclick="cart.toggle()">🛍️ <span id="cc">0</span></div>
+</header>
+
+<div id="v-buyer" class="wrap">
+  <div class="tabs">
+    <button class="tab on" onclick="app.tab('buyer','home',this)">🏠 الرئيسية</button>
+    <button class="tab" onclick="app.tab('buyer','shop',this)">📦 المنتجات</button>
+    <button class="tab" onclick="app.tab('buyer','orders',this)">📋 طلباتي</button>
+    <button class="tab" onclick="app.tab('buyer','wallet',this)">💰 محفظتي</button>
+  </div>
+  <div id="buyer-home" class="sec">
+    <div class="grid mb">
+      <div class="card stat"><div class="n">4</div><div class="l">مدن</div></div>
+      <div class="card stat"><div class="n">12+</div><div class="l">بائع</div></div>
+      <div class="card stat"><div class="n">250+</div><div class="l">منتج</div></div>
+      <div class="card stat"><div class="n">24h</div><div class="l">توصيل</div></div>
+    </div>
+    <h3>🇾🇪 اختر مدينتك</h3>
+    <div id="cities" class="mb"></div>
+    <h3>🔥 منتجات مميزة</h3>
+    <div class="grid" id="feat"></div>
+  </div>
+  <div id="buyer-shop" class="sec hide">
+    <input placeholder="🔍 ابحث..." oninput="prod.render()" id="q" class="mb">
+    <div class="grid" id="all"></div>
+  </div>
+  <div id="buyer-orders" class="sec hide"><h3>📋 طلباتي</h3><div id="ordList"></div></div>
+  <div id="buyer-wallet" class="sec hide">
+    <h3>💰 محفظتي</h3>
+    <div class="grid"><div class="card stat"><div class="n" id="wb">0</div><div class="l">رصيد (ر.ي)</div></div></div>
+    <div class="card mt"><h3>طرق الدفع</h3><p class="muted">💳 بطاقات • 📱 الكريمي • 💵 عند الاستلام</p></div>
+  </div>
+</div>
+
+<div id="v-seller" class="wrap hide">
+  <div class="tabs">
+    <button class="tab on" onclick="app.tab('seller','dash',this)">📊 التحكم</button>
+    <button class="tab" onclick="app.tab('seller','prods',this)">📦 منتجاتي</button>
+    <button class="tab" onclick="app.tab('seller','sord',this)">📋 الطلبات</button>
+  </div>
+  <div id="seller-dash" class="sec">
+    <div class="grid mb">
+      <div class="card stat"><div class="n" id="sr">0</div><div class="l">مبيعات</div></div>
+      <div class="card stat"><div class="n" id="so">0</div><div class="l">طلبات</div></div>
+      <div class="card stat"><div class="n" id="sp">0</div><div class="l">منتجات</div></div>
+      <div class="card stat"><div class="n">4.8⭐</div><div class="l">تقييم</div></div>
+    </div>
+    <div class="card mb"><h3>📈 مبيعات الأسبوع</h3><div class="bars" id="sc"></div></div>
+    <div class="card"><h3>🔔 النشاطات</h3>
+      <p class="muted">🛒 طلب جديد من صنعاء</p>
+      <p class="muted">⭐ تقييم 5 نجوم</p>
+      <p class="muted">💰 تحويل 450,000 ر.ي</p>
+    </div>
+  </div>
+  <div id="seller-prods" class="sec hide">
+    <div class="fb mb"><h3>📦 منتجاتي</h3><button class="btn bp" onclick="seller.addForm()">+ إضافة</button></div>
+    <div class="card"><table><thead><tr><th>منتج</th><th>سعر</th><th>مخزون</th><th>حذف</th></tr></thead><tbody id="spt"></tbody></table></div>
+  </div>
+  <div id="seller-sord" class="sec hide">
+    <h3>📋 الطلبات</h3>
+    <div class="card"><table><thead><tr><th>#</th><th>عميل</th><th>مبلغ</th><th>حالة</th></tr></thead><tbody id="sot"></tbody></table></div>
+  </div>
+</div>
+
+<div id="v-admin" class="wrap hide">
+  <div class="tabs">
+    <button class="tab on" onclick="app.tab('admin','ov',this)">📊 عام</button>
+    <button class="tab" onclick="app.tab('admin','sel',this)">🏪 بائعون</button>
+    <button class="tab" onclick="app.tab('admin','kyc',this)">🆔 KYC</button>
+  </div>
+  <div id="admin-ov" class="sec">
+    <div class="grid mb">
+      <div class="card stat"><div class="n" id="gmv">0</div><div class="l">GMV</div></div>
+      <div class="card stat"><div class="n" id="com">0</div><div class="l">عمولة 5%</div></div>
+      <div class="card stat"><div class="n">1,234</div><div class="l">مستخدم</div></div>
+      <div class="card stat"><div class="n" id="as">0</div><div class="l">بائعون نشطون</div></div>
+    </div>
+    <div class="card"><h3>📈 مبيعات 7 أيام</h3><div class="bars" id="ac"></div></div>
+  </div>
+  <div id="admin-sel" class="sec hide">
+    <h3>🏪 إدارة البائعين</h3>
+    <div class="card"><table><thead><tr><th>بائع</th><th>مدينة</th><th>مبيعات</th><th>حالة</th><th></th></tr></thead><tbody id="ast"></tbody></table></div>
+  </div>
+  <div id="admin-kyc" class="sec hide"><h3>🆔 طلبات KYC</h3><div id="kycList"></div></div>
+</div>
+
+<div class="ov" id="ov" onclick="cart.toggle()"></div>
+<aside class="drawer" id="dr">
+  <div class="fb mb"><h3>🛍️ السلة</h3><button class="btn bo bs" onclick="cart.toggle()">✕</button></div>
+  <div id="ci"></div>
+  <div id="cs" class="mt"></div>
+</aside>
+<div class="modal" id="md"><div class="mc" id="mdc"></div></div>
+<div class="toast" id="to"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
